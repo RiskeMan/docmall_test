@@ -44,10 +44,10 @@
 	</bean>
 
 	<!-- service(서비스) 패키지 -->
-	<context:component-scan base-package="com.minmin.service" />
+	<context:component-scan base-package="com.docmall.service" />
 	
 	<!-- mapper(매퍼) 패키지 -->
-	<mybatis-spring:scan base-package="com.minmin.mapper"/>
+	<mybatis-spring:scan base-package="com.docmall.mapper"/>
 	
 	<!-- service와 mapper는 해당 프로젝트의 경로와 명칭이 같아야 한다. -->
 	
