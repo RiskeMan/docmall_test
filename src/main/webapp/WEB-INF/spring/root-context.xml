@@ -30,8 +30,8 @@
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		
 		<!-- 공통 -->
-		<property name="username" value="ora_user"></property>
-		<property name="password" value="1234"></property>
+		<property name="username" value="spring"></property>
+		<property name="password" value="spring"></property>
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

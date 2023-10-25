@@ -60,45 +60,49 @@
             </div>
             <div class="col-2" ><button type="button" class="btn btn-outline-info" id="idCheck">중복체크</button></div>
           </div>
-        </div>
 
-        <div class="box-body">
+
+
           <div class="form-group row">
             <label for="mbsp_password" class="col-2">비밀번호</label>
             <div class="col-10">
               <input type="password" class="form-control" name="mbsp_password" id="mbsp_password" placeholder="password">
             </div>
           </div>
-        </div>
 
-        <div class="box-body">
+
+
           <div class="form-group row">
             <label for="mbsp_password2" class="col-2">비밀번호 확인</label>
             <div class="col-10">
               <input type="password" class="form-control" id="mbsp_password2" placeholder="password">
             </div>
           </div>
-        </div>
 
-        <div class="box-body">
+
           <div class="form-group row">
             <label for="mbsp_name" class="col-2">이름</label>
             <div class="col-10">
               <input type="text" class="form-control" name="mbsp_name" id="mbsp_name" placeholder="홍길동">
             </div>
           </div>
-        </div>
 
-        <div class="box-body">
           <div class="form-group row">
             <label for="mbsp_email" class="col-2">이메일</label>
-            <div class="col-10">
+            <div class="col-8">
               <input type="email" class="form-control" name="mbsp_email" id="mbsp_email" placeholder="e-mail@address">
             </div>
+              <div class="col-2" ><button type="button" class="btn btn-outline-info" id="mailAuth">메일 인증</button></div>
           </div>
-        </div>
 
-        <div class="box-body">
+          <div class="form-group row">
+            <label for="mbsp_id" class="col-2">메일 인증</label>
+            <div class="col-8">
+              <input type="text" class="form-control" name="authcode" id="authcode" placeholder="인증코드 입력">
+            </div>
+            <div class="col-2" ><button type="button" class="btn btn-outline-info" id="">인증확인</button></div>
+          </div>
+
           <div class="form-group row">
             <label for="sample2_postcode" class="col-2">우편번호</label>
             <div class="col-8">
@@ -106,18 +110,14 @@
             </div>
             <div class="col-2" ><button type="button" onclick="sample2_execDaumPostcode()" class="btn btn-outline-info">주소 검색</button></div>
           </div>
-        </div>
 
-        <div class="box-body">
           <div class="form-group row">
             <label for="sample2_address" class="col-2">주소</label>
             <div class="col-10">
               <input type="text" class="form-control" name="mbsp_addr" id="sample2_address" placeholder="주소">
             </div>
           </div>
-        </div>
 
-        <div class="box-body">
           <div class="form-group row">
             <label for="sample2_detailAddress" class="col-2">상세주소</label>
             <div class="col-10">
@@ -125,9 +125,7 @@
               <input type="hidden" id="sample2_extraAddress" placeholder="참고항목">
             </div>
           </div>
-        </div>
 
-        <div class="box-body">
           <div class="form-group row">
             <label for="mbsp_phone" class="col-2">전화번호</label>
             <div class="col-10">
@@ -253,6 +251,9 @@
     // 자바 스크립트 이벤트 등록 : https://www.w3schools.com/js/js_htmldom_eventlistener.asp
     $(document).ready(function() {
       // document.getElementById("idCheck");
+
+      let useIDCheck = false; // 아이디 중복체크 확인유무 확인용 전역 변수
+
       $("#idCheck").click(function() {
         // alert("아이디 중복체크");
         if($("#mbsp_id").val() == "") {
@@ -260,8 +261,50 @@
           $("#mbsp_id").focus();
           return;
         }
+        
+        // 아이디 중복검사
+        $.ajax({
+          url : "/mamber/idCheck",
+          type : "get",
+          dataType : "text",
+          data : {mbsp_id : $("#mbsp_id").val()},
+          success : function(result) {
+            if(result == "yes") {
+              alert("아이디 사용 가능");
+              useIDCheck = true;
+            }else {
+              alert("아이디 사용 불가능");
+              useIDCheck = false;
+              $("#mbsp_id").val(""); // 아이디 텍스트박스 값을 지움
+              $("#mbsp_id").focus(); // 아이디 입력창에 포커스를 다시 맞춰준다.
+            }
+          }
+        })
+        
       })
+      
+      // 메일인증 요청
+      $("#mailAuth").click(function() {
+        
+        if($("#mbsp_email").val() == "") {
+          alert("이메일을 입력해주세요.");
+          $("#mbsp_email").focus();
+          return
+        }
+        $.ajax({
+          url : "/email/authcode",
+          type : "get",
+          dataType : "text", // 스프링에서 보내는 데이터의 타입 'success'
+          data : {receiverMail : $("#mbsp_email").val()}, // EmailDTO.java의 private String receiverMail; // 수신자 메일주소. 즉 회원메일 주소로 데이터를 보낸다.
+          success: function(result) {
+            if(result == "success") {
+              alert("인증메일이 발송되었습니다. 메일 확인 바랍니다.");
+            }
+          }
+        })
+      });
     });
+
   </script>
 
 </body>
