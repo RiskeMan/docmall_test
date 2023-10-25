@@ -224,6 +224,7 @@
 
 		<!-- 롬복을 스프링 툴에서 설정작업도 함께 해야 한다. -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<!-- email-config.xml bean등록작업에 사용. -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
