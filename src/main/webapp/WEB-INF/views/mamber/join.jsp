@@ -51,7 +51,7 @@
         <h3 class="box-title">회원가입</h3><br>
       </div>
 
-      <form role="form">
+      <form role="form" id="joinForm" method="post" accept="/mamber/join">
         <div class="box-body">
           <div class="form-group row">
             <label for="mbsp_id" class="col-2">아이디</label>
@@ -98,9 +98,9 @@
           <div class="form-group row">
             <label for="mbsp_id" class="col-2">메일 인증</label>
             <div class="col-8">
-              <input type="text" class="form-control" name="authcode" id="authcode" placeholder="인증코드 입력">
+              <input type="text" class="form-control" name="authCode" id="authCode" placeholder="인증코드 입력">
             </div>
-            <div class="col-2" ><button type="button" class="btn btn-outline-info" id="">인증확인</button></div>
+            <div class="col-2" ><button type="button" class="btn btn-outline-info" id="btnConfirmAuth">인증확인</button></div>
           </div>
 
           <div class="form-group row">
@@ -135,7 +135,7 @@
         </div>
 
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary">확인</button>
+        <button type="submit" class="btn btn-primary" id="btnJoin">확인</button><br>
       </div>
     </form>
 
@@ -292,7 +292,7 @@
           return
         }
         $.ajax({
-          url : "/email/authcode",
+          url : "/email/authCode",
           type : "get",
           dataType : "text", // 스프링에서 보내는 데이터의 타입 'success'
           data : {receiverMail : $("#mbsp_email").val()}, // EmailDTO.java의 private String receiverMail; // 수신자 메일주소. 즉 회원메일 주소로 데이터를 보낸다.
@@ -303,6 +303,64 @@
           }
         })
       });
+
+      let isConfirmAuth = false; // 메일 인증 확인용 상태
+
+      // <div class="col-2" ><button type="button" class="btn btn-outline-info" id="btnConfirmAuth">인증확인</button></div>
+      $("#btnConfirmAuth").click(function() {
+
+        if($("#authCode").val() == "") {
+          alert("인증코드를 입력해 주세요.");
+          $("#authCode").focus();
+          return;
+        }
+
+        // 인증확인 요청
+        $.ajax({
+          url : "/email/confirmAuthcode",
+          type : "get",
+          dataType : "text",
+          data : {authCode : $("#authCode").val()},
+          success : function(result) {
+            if(result == "success") {
+              alert("인증 성공")
+              isConfirmAuth = true;
+            }else if(result == "fail") {
+              alert("인증 실패. 인증 코드를 확인 해 주세요.")
+              $("#authCode").val("");
+              isConfirmAuth = false;
+            }else if(result == "request") {
+              alert("메일 인증 요청을 다시 해 주세요.")
+              $("#authCode").val("");
+              isConfirmAuth = false;
+            }
+          }
+        });
+      });
+
+      // 폼(form)태그 참조. <form role="form" id="joinForm" method="post" accept="">
+      let joinForm = $("#joinForm");
+
+
+      // 회원가입 버튼
+      $("#btnJoin").click(function() {
+
+        // 회원가입 유효성 검사
+
+        if(!useIDCheck) {
+          alert("아이디 중복체크를 해 주세요.");
+          return;
+        }
+
+        if(!isConfirmAuth) {
+          alert("메일 인증을 확인 바랍니다.");
+          return;
+        }
+
+        // 폼 전송작업
+        joinForm.submit();
+      })
+
     });
 
   </script>

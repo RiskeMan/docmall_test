@@ -2,6 +2,7 @@ package com.docmall.service;
 
 import org.springframework.stereotype.Service;
 
+import com.docmall.domain.MamberVO;
 import com.docmall.mapper.MamberMaper;
 
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class MamberServiceImpl implements MamberService {
 
 	// 자동주입
-	private final MamberMaper memberMapper;
+	private final MamberMaper mamberMapper;
 	// @RequiredArgsConstructor 로 인해 memberMapper를 매개변수로 생성자 메소드 생성됨.
 
 //	private MamberServiceImpl (MamberMaper memberMapper) {
@@ -20,8 +21,20 @@ public class MamberServiceImpl implements MamberService {
 	
 	@Override
 	public String idCheck(String mbsp_id) {
-		// TODO Auto-generated method stub
-		return memberMapper.idCheck(mbsp_id);
+
+		return mamberMapper.idCheck(mbsp_id);
+	}
+
+	@Override
+	public void join(MamberVO vo) {
+		
+		mamberMapper.join(vo);
+	}
+
+	@Override
+	public MamberVO login(String mbsp_id) {
+		
+		return mamberMapper.login(mbsp_id);
 	}
 	
 	

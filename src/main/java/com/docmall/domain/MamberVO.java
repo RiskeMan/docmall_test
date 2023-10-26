@@ -2,7 +2,6 @@ package com.docmall.domain;
 
 import java.util.Date;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +11,12 @@ import lombok.ToString;
 @Getter
 public class MamberVO {
 
+/*
+ * 주로 사용되는 기능
+ * - 회원가입, 회원 수정 폼, 회원 수정 ....
+ * - db회원 테이블에서 정보를 읽어올 때
+ */
+	
 /*
 CREATE TABLE MBSP_TBL(
 

@@ -23,7 +23,7 @@ public class EmailController {
 	private final EmailService emailService;
 
 	// 메일 인증코드 요청주소
-	@GetMapping("/authcode")
+	@GetMapping("/authCode")
 	public ResponseEntity<String> authCode(EmailDTO dto, HttpSession session) {
 		
 		log.info("전자우편 정보 : " + dto);
@@ -51,4 +51,30 @@ public class EmailController {
 		
 		return entity;
 	}
+	
+	// 인증코드 확인 = 서센형태로 저장한 정보를 이용
+	@GetMapping("/confirmAuthcode")
+	public ResponseEntity<String> confirmAuthcode(String authCode, HttpSession session) {
+		
+		ResponseEntity<String> entity = null;
+		
+//		String sauthCode = "";
+		if(session.getAttribute("authCode") != null) {
+			// 인증 일치 여부
+			if(authCode.equals(session.getAttribute("authCode"))) {
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			}else {
+				entity = new ResponseEntity<String>("fail", HttpStatus.OK);
+			}
+		}else {
+			// 세션이 소멸되었을 때
+			entity = new ResponseEntity<String>("request", HttpStatus.OK);
+		}
+		
+		// 톰캣은 기본 설정으로 세션 정보가 30분만 지속되고, 그 이후엔 null값이 되므로,
+		// 서버 세션의 authCode 값이 null인지 확인 작업을 해야 한다.
+		
+		return entity;
+	}
+	
 }
