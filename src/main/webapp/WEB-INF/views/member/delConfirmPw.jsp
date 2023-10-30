@@ -49,10 +49,10 @@
     <div class="box box-primary">
 
       <div class="box-header with-border">
-        <h3 class="box-title">로그인</h3><br>
+        <h3 class="box-title">회원 탈퇴 인증 확인</h3><br>
       </div>
 
-      <form role="form" id="loginForm" method="post" accept="/member/login">
+      <form role="form" id="confirmPwForm" method="post" action="/member/delete">
         <div class="box-body">
 
           <div class="form-group row">
@@ -70,7 +70,7 @@
           </div>
 
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary" id="btnlogin">로그인</button><br>
+        <button type="submit" class="btn btn-primary" id="btnlogin">탈퇴하기</button><br>
       </div>
     </form>
 

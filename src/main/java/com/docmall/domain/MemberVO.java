@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class MamberVO {
+public class MemberVO {
 
 /*
  * 주로 사용되는 기능

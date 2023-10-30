@@ -49,10 +49,10 @@
     <div class="box box-primary">
 
       <div class="box-header with-border">
-        <h3 class="box-title">로그인</h3><br>
+        <h3 class="box-title">회원 수정 인증 확인</h3><br>
       </div>
 
-      <form role="form" id="loginForm" method="post" accept="/member/login">
+      <form role="form" id="confirmPwForm" method="post" accept="/member/confirmPw">
         <div class="box-body">
 
           <div class="form-group row">

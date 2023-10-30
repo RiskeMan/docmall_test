@@ -49,10 +49,10 @@
     <div class="box box-primary">
 
       <div class="box-header with-border">
-        <h3 class="box-title">로그인</h3><br>
+        <h3 class="box-title">회원 수정 인증 확인</h3><br>
       </div>
 
-      <form role="form" id="loginForm" method="post" accept="/member/login">
+      <form role="form" id="confirmPwForm" method="post" accept="/member/confirmPw">
         <div class="box-body">
 
           <div class="form-group row">
@@ -70,7 +70,7 @@
           </div>
 
       <div class="box-footer">
-        <button type="submit" class="btn btn-primary" id="btnlogin">로그인</button><br>
+        <button type="submit" class="btn btn-primary" id="btnlogin">인증확인</button><br>
       </div>
     </form>
 
@@ -87,6 +87,8 @@
   <script>
 
     let msg = "${msg}";
+    let sessionMbsp_id = "${loginStatus.getMbsp_id()}"
+
     if(msg != "") {
       alert(msg);
     }
@@ -99,6 +101,10 @@
       }else if($("#mbsp_password").val() == "") {
         alert("비밀번호를 입력해 주세요.");
         $("#mbsp_password").focus();
+        return false;
+      }else if($("#mbsp_id").val() != sessionMbsp_id) {
+        alert("아이디를 다시 확인 해 주세요.");
+        $("#mbsp_id").focus();
         return false;
       }
     })
