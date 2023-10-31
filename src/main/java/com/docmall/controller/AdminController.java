@@ -28,7 +28,7 @@ public class AdminController {
 	// 암호 관련 기능을 제공 해주는 클래스
 	
 	// 관리자 로그인 폼 페이지
-	@GetMapping("")
+	@GetMapping("/intro") // /admin/
 	public String adminlogin() {
 		
 		log.info("관리자 로그인 페이지");
@@ -64,26 +64,28 @@ public class AdminController {
 				session.setAttribute("adminStatus", db_vo);
 				
 				// 로그인 시간 업데이트
-//				memberService.loginTimeUpdate(dto.getMbsp_id());
+				adminService.adminTimeUpdate(vo.getAdmin_id());
+				
+				log.info("로그인 시간 업데이트");
 	            
 	            // 로그인 시간 업데이트 후, db_vo를 다시 가져와서 최신 정보를 얻을 수 있음
-//	            db_vo = memberService.login(dto.getMbsp_id());
+	            db_vo = adminService.admin_ok(vo.getAdmin_id());
 	            
 	            // 최근 로그인 시간을 세션에 저장
-//	            session.setAttribute("lastLoginTime", db_vo.getMbsp_lastlogin());
+	            session.setAttribute("admin_visit_date", db_vo.getAdmin_visit_date());
 
 				
 				url = "/admin/admin_menu"; // 메인 페이지 주소
 				
 			}else {
-				url = "/admin/"; // 로그인 폼 주소
-				msg = "비밀번호가 일치하지 않습니다.";
+				url = "/admin/intro"; // 로그인 폼 주소
+				msg = "failPW";
 				rttr.addFlashAttribute("msg", msg); // 로그인 폼 jsp파일에서 사용할 목적
 			}
 		}else {
 			// 아이디가 일치하지 않을 때.
-			url = "/admin/"; // 로그인 폼 주소
-			msg = "아이디가 일치하지 않습니다.";
+			url = "/admin/intro"; // 로그인 폼 주소
+			msg = "failID";
 			rttr.addFlashAttribute("msg", msg); // 로그인 폼 jsp파일에서 사용할 목적
 		}
 		
@@ -95,5 +97,14 @@ public class AdminController {
 	@GetMapping("/admin_menu")
 	public void admin_menu() {
 		
+	}
+	
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/admin/intro"; // 로그인 페이지 주소
 	}
 }

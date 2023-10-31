@@ -11,7 +11,7 @@
 		<div>
 			<b>${sessionScope.loginStatus.mbsp_id }님 </b>
 			<b>${sessionScope.loginStatus.mbsp_email } </b>
-			<%-- <b>[이전 로그인 시간 : <fmt:formatDate value="${sessionScope.loginStatus.mbsp_lastlogin }" pattern="yyyy-MM-dd hh:mm:ss"/>]</b> --%>
+			<!-- <b>[이전 로그인 시간 : <fmt:formatDate value="${sessionScope.loginStatus.mbsp_lastlogin }" pattern="yyyy-MM-dd hh:mm:ss"/>]</b> -->
 			<b>[로그인 시간 : <fmt:formatDate value="${lastLoginTime}" pattern="yyyy-MM-dd hh:mm:ss"/>]</b>
 		</div>
 	</c:if>
