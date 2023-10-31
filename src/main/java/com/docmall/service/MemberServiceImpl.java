@@ -3,7 +3,7 @@ package com.docmall.service;
 import org.springframework.stereotype.Service;
 
 import com.docmall.domain.MemberVO;
-import com.docmall.mapper.MemberMaper;
+import com.docmall.mapper.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 
 	// 자동주입
-	private final MemberMaper memberMapper;
+	private final MemberMapper memberMapper;
 	// @RequiredArgsConstructor 로 인해 memberMapper를 매개변수로 생성자 메소드 생성됨.
 
 //	private MamberServiceImpl (MamberMaper memberMapper) {
