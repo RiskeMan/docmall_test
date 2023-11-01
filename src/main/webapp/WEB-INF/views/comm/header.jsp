@@ -17,9 +17,11 @@
 	</c:if>
   
   <nav class="my-2 my-md-0 mr-md-3">
-  
-  	<!-- 로그인 이전 표시 -->
-  	<c:if test="${sessionScope.loginStatus == null }">
+
+    <a class="p-2 text-dark" href="/board/list">Board</a>
+    
+    <!-- 로그인 이전 표시 -->
+    <c:if test="${sessionScope.loginStatus == null }">
     <a class="p-2 text-dark" href="/member/login">Login</a>
     <a class="p-2 text-dark" href="/member/join">Join</a>
     </c:if>
