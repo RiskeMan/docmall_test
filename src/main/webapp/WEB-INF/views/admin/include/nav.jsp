@@ -43,7 +43,7 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">상품 등록</a></li>
+            <li><a href="/admin/product/pro_insert">상품 등록</a></li>
             <li><a href="#">상품 목록</a></li>
           </ul>
         </li>
@@ -62,7 +62,6 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="#">회원 목록</a></li>
-            <li><a href="#">회원 관리</a></li>
             <li><a href="#">제제자 목록</a></li>
             <li><a href="#">회원 강퇴</a></li>
           </ul>

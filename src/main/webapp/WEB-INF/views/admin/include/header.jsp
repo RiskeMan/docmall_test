@@ -22,6 +22,15 @@
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
+      
+		<ul class="nav navbar-nav">
+
+			<li class="dropdown messages-menu">
+            <!-- Menu toggle button -->
+            <a href="/">[DocMall]</a>
+          </li>
+
+        </ul>
 
         <ul class="nav navbar-nav">
 

@@ -71,7 +71,7 @@ public class AdminController {
 	            // 로그인 시간 업데이트 후, db_vo를 다시 가져와서 최신 정보를 얻을 수 있음
 	            db_vo = adminService.admin_ok(vo.getAdmin_id());
 	            
-	            // 최근 로그인 시간을 세션에 저장
+	            // 최신 로그인 시간을 세션에 저장
 	            session.setAttribute("admin_visit_date", db_vo.getAdmin_visit_date());
 
 				
